@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { BrowserProvider, Contract, parseEther, randomBytes, toBeHex, keccak256 } from 'ethers';
-// Cambia esto por la dirección real de tu contrato desplegado en Scroll
-const CONTRACT_ADDRESS = "0xYourContractAddressHere";
+
 // ABI importado o copiado (puedes importar desde abby.json si lo deseas)
 import abbyAbi from '../abby.json';
 import { Wallet, Trophy, Coins, Sparkles, ExternalLink } from 'lucide-react';
