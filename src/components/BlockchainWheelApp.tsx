@@ -328,7 +328,7 @@ const handleVerifyWinner = async () => {
         <div className="mt-8 text-center">
           <div className="inline-block bg-slate-800/50 backdrop-blur-lg rounded-xl px-6 py-3 border border-purple-500/30">
             <p className="text-purple-300 text-sm">
-              🚀 Powered by <span className="font-bold text-white">OnchainKit</span> & <span className="font-bold text-white">Base</span>
+              🚀 Powered by <span className="font-bold text-white">OnchainKit</span> & <span className="font-bold text-white">Scroll</span>
             </p>
           </div>
         </div>
