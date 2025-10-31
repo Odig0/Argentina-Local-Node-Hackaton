@@ -28,7 +28,7 @@ export default function Page() {
               {/* LoginButton con color más azul */}
               {!address && (
                 <div>
-                  <LoginButton className="!bg-blue-600 hover:!bg-blue-700 !text-white" />
+                  <LoginButton />
                 </div>
               )}
             </div>
