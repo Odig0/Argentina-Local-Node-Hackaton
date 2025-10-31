@@ -126,7 +126,7 @@ const BlockchainWheelApp = ({ address, signer }: BlockchainWheelAppProps) => {
 const handleDeposit = async () => {
   try {
     if (!signer) {
-      alert('Conecta tu wallet');
+    
       return;
     }
     const contract = new Contract(CONTRACT_ADDRESS, abbyAbi, signer);
@@ -143,7 +143,6 @@ const handleDeposit = async () => {
     alert('✅ Depósito realizado exitosamente!');
   } catch (err: any) {
     console.error('Error al depositar:', err);
-    alert('❌ Error al depositar: ' + (err.message || err));
   }
 };
 
@@ -151,7 +150,7 @@ const handleDeposit = async () => {
 const handleVerifyWinner = async () => {
   try {
     if (!signer) {
-      alert('Conecta tu wallet');
+ 
       return;
     }
     const contract = new Contract(CONTRACT_ADDRESS, abbyAbi, signer);
@@ -165,7 +164,7 @@ const handleVerifyWinner = async () => {
     alert('✅ Ganador verificado exitosamente!');
   } catch (err: any) {
     console.error('Error al verificar ganador:', err);
-    alert('❌ Error al verificar ganador: ' + (err.message || err));
+
   }
 };
   // El disconnectWallet tampoco se maneja aquí
