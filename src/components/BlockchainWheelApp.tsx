@@ -6,7 +6,12 @@ import abbyAbi from '../abby.json';
 import { Wallet, Trophy, Coins, Sparkles, ExternalLink } from 'lucide-react';
 
 
-const BlockchainWheelApp = () => {
+type BlockchainWheelAppProps = {
+  address?: string;
+  signer?: any;
+};
+
+const BlockchainWheelApp = ({ address, signer }: BlockchainWheelAppProps) => {
   const [points, setPoints] = useState(0);
   const [spinning, setSpinning] = useState(false);
   const [rotation, setRotation] = useState(0);
@@ -120,28 +125,21 @@ const BlockchainWheelApp = () => {
 
 const handleDeposit = async () => {
   try {
-    if (!window.ethereum) {
-      alert('Por favor instala MetaMask');
+    if (!signer) {
+      alert('Conecta tu wallet');
       return;
     }
-    
-    const provider = new BrowserProvider(window.ethereum);
-    const signer = await provider.getSigner();
     const contract = new Contract(CONTRACT_ADDRESS, abbyAbi, signer);
-    
     // Parámetros de ejemplo:
     const raffleId = 1;
     const ticketPrice = parseEther('0.01'); // 0.01 ETH
-    
     // Commitment aleatorio (en real, debe ser hash de secreto)
     const randomValue = randomBytes(32);
     const commitment = keccak256(randomValue);
-    
     console.log('Depositando ticket...');
     const tx = await contract.depositTicket(raffleId, commitment, { value: ticketPrice });
     console.log('Esperando confirmación...');
     await tx.wait();
-    
     alert('✅ Depósito realizado exitosamente!');
   } catch (err: any) {
     console.error('Error al depositar:', err);
@@ -152,24 +150,18 @@ const handleDeposit = async () => {
 // Función para verificar ganador (cierra la rifa y elige un ganador aleatorio)
 const handleVerifyWinner = async () => {
   try {
-    if (!window.ethereum) {
-      alert('Por favor instala MetaMask');
+    if (!signer) {
+      alert('Conecta tu wallet');
       return;
     }
-    
-    const provider = new BrowserProvider(window.ethereum);
-    const signer = await provider.getSigner();
     const contract = new Contract(CONTRACT_ADDRESS, abbyAbi, signer);
-    
     const raffleId = 1;
     // Randomness de ejemplo (en producción usar VRF de Chainlink)
     const randomness = Math.floor(Math.random() * 1e18);
-    
     console.log('Cerrando rifa y seleccionando ganador...');
     const tx = await contract.closeAndSetWinner(raffleId, randomness);
     console.log('Esperando confirmación...');
     await tx.wait();
-    
     alert('✅ Ganador verificado exitosamente!');
   } catch (err: any) {
     console.error('Error al verificar ganador:', err);
@@ -281,6 +273,7 @@ const handleVerifyWinner = async () => {
                   <button
                     className="px-8 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 shadow-md transition-all"
                     onClick={handleDeposit}
+                    disabled={!address}
                   >
                     Depositar
                   </button>
@@ -313,7 +306,7 @@ const handleVerifyWinner = async () => {
                 </div>
                 <div className="bg-gradient-to-r from-green-600/20 to-emerald-600/20 p-4 rounded-xl border border-green-500/30">
                   <div className="text-green-300 text-sm">Network</div>
-                  <div className="text-lg font-bold text-white">Base Sepolia</div>
+                  <div className="text-lg font-bold text-white">SCROLL </div>
                 </div>
               </div>
 
